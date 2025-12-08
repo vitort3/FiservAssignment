@@ -5,8 +5,6 @@
 //  Created by vitoraugusto.dearaujosilva on 03/12/25.
 //
 
-import UIKit
-
 class AccountDetailsTableViewCell: UITableViewCell {
     //MARK: UI Elements
     private lazy var accountTypeLabel: UILabel = {
@@ -69,7 +67,11 @@ class AccountDetailsTableViewCell: UITableViewCell {
         self.contentContainer.addSubview(self.accountBranchLabel)
         self.contentContainer.addSubview(self.accountBeneficiariesLabel)
         
-        self.backgroundColor = .red
+        // REMOVIDO: self.backgroundColor = .red
+        self.backgroundColor = .clear // ou simplesmente remova essa linha
+        
+        // MOVIDO: setupConstraints() deve ser chamado aqui, apenas uma vez
+        self.setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -97,33 +99,38 @@ class AccountDetailsTableViewCell: UITableViewCell {
         self.accountBranchLabel.text = "Branch: \(accountDetails.branch)"
         self.accountBeneficiariesLabel.text = "Beneficiaries: \(accountDetails.beneficiaries)"
 
-        self.setupConstraints()
-
+        // REMOVIDO: self.setupConstraints() - não deve ser chamado aqui!
     }
     
     private func setupConstraints() {
-        self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10).isActive = true
-        self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10).isActive = true
-        self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
-        self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
-        
-        self.accountTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5).isActive = true
-        self.accountTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
-        
-        self.productNameLabel.topAnchor.constraint(equalTo: self.accountTypeLabel.bottomAnchor, constant: 5).isActive = true
-        self.productNameLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
-        
-        self.openedDateLabel.topAnchor.constraint(equalTo: self.productNameLabel.bottomAnchor, constant: 5).isActive = true
-        self.openedDateLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
-        
-        self.accountBranchLabel.topAnchor.constraint(equalTo: self.openedDateLabel.bottomAnchor, constant: 5).isActive = true
-        self.accountBranchLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
-        
-        self.accountBeneficiariesLabel.topAnchor.constraint(equalTo: self.accountBranchLabel.bottomAnchor, constant: 5).isActive = true
-        self.accountBeneficiariesLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
-        
+        NSLayoutConstraint.activate([
+            // Content Container
+            self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+            self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
+            self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+            self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+            
+            // Account Type Label
+            self.accountTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
+            self.accountTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+            
+            // Product Name Label
+            self.productNameLabel.topAnchor.constraint(equalTo: self.accountTypeLabel.bottomAnchor, constant: 5),
+            self.productNameLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+            
+            // Opened Date Label
+            self.openedDateLabel.topAnchor.constraint(equalTo: self.productNameLabel.bottomAnchor, constant: 5),
+            self.openedDateLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+            
+            // Account Branch Label
+            self.accountBranchLabel.topAnchor.constraint(equalTo: self.openedDateLabel.bottomAnchor, constant: 5),
+            self.accountBranchLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+            
+            // Account Beneficiaries Label
+            self.accountBeneficiariesLabel.topAnchor.constraint(equalTo: self.accountBranchLabel.bottomAnchor, constant: 5),
+            self.accountBeneficiariesLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+            self.accountBeneficiariesLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -5),
+            self.accountBeneficiariesLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -5)
+        ])
     }
-    
-    
 }
-
