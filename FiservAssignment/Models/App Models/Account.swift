@@ -35,7 +35,7 @@ struct Account: Codable {
 }
 extension Account {
     static func getMockAccountList() async -> [Account] {
-        try? await Task.sleep(seconds: 2)
+        try? await Task.sleep()
             return [Account(id: "1f34c76a-b3d1-43bc-af91-a82716f1bc2e",
                         accountNumber: 66,
                         balance: "500.00",
@@ -74,7 +74,7 @@ extension Account {
                             accountNickname: "American Account")]
     }
     static func getEmptyMockAccountList() async -> [Account] {
-        try? await Task.sleep(seconds: 2)
+        try? await Task.sleep()
         return []
     }
 }

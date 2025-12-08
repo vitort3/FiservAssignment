@@ -92,6 +92,8 @@ class AccountDetailsViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.separatorColor = .clear
+        self.tableView.estimatedRowHeight = 200
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.activityIndicator)
         
@@ -124,9 +126,9 @@ extension AccountDetailsViewController: UITableViewDataSource {
         } else if section == 1 {
             return 1
         } else {
-//            if hasTransactions {
-//                return self.viewModel.transactions.count
-//            }
+            if hasTransactions {
+                return self.viewModel.transactions.count
+            }
             return 0
         }
     }
@@ -145,15 +147,27 @@ extension AccountDetailsViewController: UITableViewDataSource {
             return cell
             
         } else {
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.reuseIdentifier, for: indexPath) as? TransactionTableViewCell else { return UITableViewCell() }
+            let transaction = self.viewModel.transactions[indexPath.row]
+            cell.setupCell(for: transaction)
+            return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 140
+        } else if indexPath.section == 1 {
+            return 200
+        }
+        return 600
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 140
         }
-        return 200
+        return UITableView.automaticDimension
     }
 }
 

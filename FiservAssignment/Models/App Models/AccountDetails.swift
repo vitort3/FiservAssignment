@@ -29,11 +29,11 @@ struct AccountDetails {
 
 extension AccountDetails {
     static func getMockAccountDetails() async -> AccountDetails {
-        try? await Task.sleep(seconds: 2)
+        try? await Task.sleep()
         
         return AccountDetails(productName: "Current Account EUR",
-                              openedDate: "2015-12-03T10:15:30Z",
+                              openedDate: "2015-12-23T10:15:30Z",
                               branch: "Main Branch",
-                              beneficiaries: ["John Doe"])
+                              beneficiaries: ["John Doe", "Jane Smith", "Alice Johnson", "Charlie Brown", "Lucy Liu", "Sophia Meier", "Emil Schmidt", "Isabella Eriksson", "Arthur Eriksson", "Emma Andersson"])
     }
 }

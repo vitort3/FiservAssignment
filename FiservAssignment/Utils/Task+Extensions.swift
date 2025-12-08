@@ -6,7 +6,7 @@
 //
 
 extension Task where Success == Never, Failure == Never {
-    static func sleep(seconds: Double) async throws {
+    static func sleep(seconds: Double = 0.5) async throws {
         try await Task.sleep(nanoseconds: UInt64(seconds * Double(1000000000)))
     }
 }
