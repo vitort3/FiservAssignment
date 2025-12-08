@@ -118,6 +118,7 @@ extension AccountListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.reuseIdentifier, for: indexPath) as?  AccountTableViewCell else { return UITableViewCell() }
         let account = viewModel.getAccount(at: indexPath)
+        cell.accessoryType = .disclosureIndicator
         cell.setupCell(for: account)
         return cell
     }

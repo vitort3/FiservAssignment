@@ -60,7 +60,6 @@ class AccountTableViewCell: UITableViewCell {
     }
     
     func setupCell(for account: Account) {
-        self.accessoryType = .disclosureIndicator
         self.contentView.addSubview(self.contentContainer)
         self.contentContainer.addSubview(self.accountBalanceLabel)
         self.contentContainer.addSubview(self.accountTypeLabel)
@@ -75,10 +74,10 @@ class AccountTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        self.contentContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        self.contentContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        self.contentContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        self.contentContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10).isActive = true
+        self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10).isActive = true
+        self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
+        self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
         
         
         self.accountNicknameLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5).isActive = true
