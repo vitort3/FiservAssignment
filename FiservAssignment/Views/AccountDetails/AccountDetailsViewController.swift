@@ -36,9 +36,10 @@ class AccountDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = #colorLiteral(red: 0.9777106643, green: 0.9777106643, blue: 0.9777106643, alpha: 1)
         self.setupTableView()
         self.bindViewModel()
+        self.setupNavigationBarButton()
         self.viewModel.loadAccountDetailsAndTransactions()
         
     }
@@ -51,7 +52,7 @@ class AccountDetailsViewController: UIViewController {
     
     private func setupNavigationBarButton() {
         let starImage = UIImage(systemName: "star")
-        let starButton = UIBarButtonItem(image: starImage, style: .plain, target: self, action: #selector(starButtonTapped))
+        let starButton = UIBarButtonItem(image: starImage, style: .prominent, target: self, action: #selector(starButtonTapped))
         self.navigationItem.rightBarButtonItem = starButton
     }
 
@@ -152,15 +153,6 @@ extension AccountDetailsViewController: UITableViewDataSource {
             cell.setupCell(for: transaction)
             return cell
         }
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 140
-        } else if indexPath.section == 1 {
-            return 200
-        }
-        return 600
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

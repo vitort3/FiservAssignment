@@ -47,7 +47,7 @@ class AccountDetailsTableViewCell: UITableViewCell {
     private let contentContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .opaqueSeparator
+        view.backgroundColor = #colorLiteral(red: 0.9220661521, green: 0.9220661521, blue: 0.9220661521, alpha: 1)
         view.layer.cornerRadius = 10
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.gray.cgColor

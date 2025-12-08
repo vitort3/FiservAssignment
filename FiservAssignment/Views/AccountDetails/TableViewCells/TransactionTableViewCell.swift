@@ -11,36 +11,37 @@ class TransactionTableViewCell: UITableViewCell {
     private let contentContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .opaqueSeparator
+        view.backgroundColor = #colorLiteral(red: 0.9220661521, green: 0.9220661521, blue: 0.9220661521, alpha: 1)
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 3
         view.layer.borderColor = UIColor.gray.cgColor
         return view
     }()
     
     private let transactionDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let transactionAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let transactionTypeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let transactionDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -70,6 +71,11 @@ class TransactionTableViewCell: UITableViewCell {
         let date = formatter.string(from: transaction.date)
         self.transactionDateLabel.text = date
         self.transactionAmountLabel.text = transaction.transactionAmount
+        if transaction.transactionAmount.contains("-") {
+            self.transactionAmountLabel.textColor = .red
+        } else {
+            self.transactionAmountLabel.textColor = .green
+        }
         self.transactionTypeLabel.text = transaction.transactionType
         
         if transaction.description == Constants.noData {
@@ -88,24 +94,18 @@ class TransactionTableViewCell: UITableViewCell {
         self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
         self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
         
-        // Transaction Type (Verde - top-left)
-        self.transactionTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
-        self.transactionTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+        self.transactionTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 10),
+        self.transactionTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10),
+
+        self.transactionDateLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 10),
+        self.transactionDateLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -10),
         
-        // Transaction Date (Vermelho - top-right)
-        self.transactionDateLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
-        self.transactionDateLabel.leadingAnchor.constraint(equalTo: self.transactionTypeLabel.trailingAnchor, constant: 10),
-        self.transactionDateLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -5),
+        self.transactionDescriptionLabel.topAnchor.constraint(equalTo: self.transactionTypeLabel.bottomAnchor, constant: 7),
+        self.transactionDescriptionLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10),
         
-        // Transaction Description (Azul - bottom-left, OPCIONAL)
-        self.transactionDescriptionLabel.topAnchor.constraint(equalTo: self.transactionTypeLabel.bottomAnchor, constant: 10),
-        self.transactionDescriptionLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
-        self.transactionDescriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.transactionAmountLabel.leadingAnchor, constant: -10),
-        
-        // Transaction Amount (Amarelo - bottom-right, ANCORA O BOTTOM)
         self.transactionAmountLabel.topAnchor.constraint(equalTo: self.transactionDateLabel.bottomAnchor, constant: 10),
-        self.transactionAmountLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -5),
-        self.transactionAmountLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -5)
+        self.transactionAmountLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -8),
+        self.transactionAmountLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -8)
     ])
 }
     
