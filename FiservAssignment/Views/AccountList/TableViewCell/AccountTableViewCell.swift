@@ -10,34 +10,41 @@ class AccountTableViewCell: UITableViewCell {
     //MARK: UI Elements
     private lazy var accountBalanceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var accountTypeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var accountNicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
+    private lazy var contentContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .opaqueSeparator
+        view.layer.cornerRadius = 10
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray.cgColor
+        return view
+    }()
     
     //MARK: Class Properties
-    private let account: Account
+    static let reuseIdentifier: String = "AccountTableViewCell"
 
     //MARK: ViewLifeCycle
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, accountToDisplay currentAccount: Account) {
-        self.account = currentAccount
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupCell()
     }
     
     required init?(coder: NSCoder) {
@@ -49,32 +56,39 @@ class AccountTableViewCell: UITableViewCell {
         self.accountTypeLabel.text = nil
         self.accountBalanceLabel.text = nil
         self.accountNicknameLabel.text = nil
+        self.contentContainer = UIView()
     }
     
-    private func setupCell() {
+    func setupCell(for account: Account) {
         self.accessoryType = .disclosureIndicator
-        self.contentView.addSubview(self.accountBalanceLabel)
-        self.contentView.addSubview(self.accountTypeLabel)
-        self.contentView.addSubview(self.accountNicknameLabel)
+        self.contentView.addSubview(self.contentContainer)
+        self.contentContainer.addSubview(self.accountBalanceLabel)
+        self.contentContainer.addSubview(self.accountTypeLabel)
+        self.contentContainer.addSubview(self.accountNicknameLabel)
         
         self.accountBalanceLabel.text = "\(account.balance) \(account.currencyCode)"
         self.accountTypeLabel.text = account.accountType
-        self.accountNicknameLabel.text = account.accountNickname == "NO_DATA" ? "\(account.accountNumber)" : account.accountNickname
+        self.accountNicknameLabel.text = account.accountNickname == "NO_DATA" ? "Account Number: \(account.accountNumber)" : account.accountNickname
         
         self.setupConstraints()
 
     }
     
     private func setupConstraints() {
-        self.accountNicknameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-        self.accountNicknameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        self.contentContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        self.contentContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        self.contentContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        self.contentContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
         
-        self.accountBalanceLabel.topAnchor.constraint(equalTo: self.accountNicknameLabel.bottomAnchor, constant: 5).isActive = true
-        self.centerXAnchor.constraint(equalTo: self.accountBalanceLabel.centerXAnchor).isActive = true
         
-        self.accountTypeLabel.topAnchor.constraint(equalTo: self.accountBalanceLabel.bottomAnchor, constant: 5).isActive = true
-        self.accountTypeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10).isActive = true
+        self.accountNicknameLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5).isActive = true
+        self.accountNicknameLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10).isActive = true
         
+        self.accountBalanceLabel.centerYAnchor.constraint(equalTo: self.contentContainer.centerYAnchor).isActive = true
+        self.accountBalanceLabel.centerXAnchor.constraint(equalTo: self.contentContainer.centerXAnchor).isActive = true
+        
+        self.accountTypeLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -5).isActive = true
+        self.accountTypeLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -10).isActive = true
         
     }
     

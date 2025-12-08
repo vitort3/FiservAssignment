@@ -8,16 +8,119 @@
 import UIKit
 
 class AccountDetailsTableViewCell: UITableViewCell {
+    //MARK: UI Elements
+    private lazy var accountTypeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var productNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var openedDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var accountBranchLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var accountBeneficiariesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var contentContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .opaqueSeparator
+        view.layer.cornerRadius = 10
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray.cgColor
+        return view
+    }()
+    
+    //MARK: Class Properties
+    static let reuseIdentifier: String = "AccountDetailsTableViewCell"
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    //MARK: ViewLifeCycle
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.accountTypeLabel.text = nil
+        self.productNameLabel.text = nil
+        self.openedDateLabel.text = nil
+        self.accountBranchLabel.text = nil
+        self.accountBeneficiariesLabel.text = nil
+        self.contentContainer = UIView()
+    }
+    
+    func setupCell(for account: Account, andDetails accountDetails: AccountDetails) {
+        self.accessoryType = .none
+        self.contentView.addSubview(self.contentContainer)
+        self.contentContainer.addSubview(self.accountTypeLabel)
+        self.contentContainer.addSubview(self.productNameLabel)
+        self.contentContainer.addSubview(self.openedDateLabel)
+        self.contentContainer.addSubview(self.accountBranchLabel)
+        self.contentContainer.addSubview(self.accountBeneficiariesLabel)
+        
+        self.accountTypeLabel.text = "Type: \(account.accountType)"
+        self.productNameLabel.text = "Product Name: \(accountDetails.productName)"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MMMM-yyyy"
+        let date = formatter.string(from: accountDetails.openedDate)
+        self.openedDateLabel.text = "Opened Date: \(date)"
+        self.accountBranchLabel.text = "Branch: \(accountDetails.branch)"
+        self.accountBeneficiariesLabel.text = "Beneficiaries: \(accountDetails.beneficiaries)"
 
+        self.setupConstraints()
+
+    }
+    
+    private func setupConstraints() {
+        self.contentContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        self.contentContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        self.contentContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        self.contentContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        
+        self.accountTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5).isActive = true
+        self.accountTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
+        
+        self.productNameLabel.topAnchor.constraint(equalTo: self.accountTypeLabel.bottomAnchor, constant: 5).isActive = true
+        self.productNameLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
+        
+        self.openedDateLabel.topAnchor.constraint(equalTo: self.productNameLabel.bottomAnchor, constant: 5).isActive = true
+        self.openedDateLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
+        
+        self.accountBranchLabel.topAnchor.constraint(equalTo: self.openedDateLabel.bottomAnchor, constant: 5).isActive = true
+        self.accountBranchLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
+        
+        self.accountBeneficiariesLabel.topAnchor.constraint(equalTo: self.accountBranchLabel.bottomAnchor, constant: 5).isActive = true
+        self.accountBeneficiariesLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5).isActive = true
+        
+    }
+    
+    
 }

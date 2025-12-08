@@ -32,11 +32,15 @@ class ServicesHelper {
         }
     }
     
-    func getRequestWithAuth(forUrl url: URL) -> URLSession {
-        
+    func getRequestWithAuth(forUrl url: URL, method: HTTPRequestMethods) -> URLRequest {
         let authString = "Advantage:mobileAssignment"
         let base64Auth = Data(authString.utf8).base64EncodedString()
         
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.setValue("Basic \(base64Auth)", forHTTPHeaderField: "Authorization")
+        
+        return request
     }
     
     

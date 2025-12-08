@@ -22,5 +22,15 @@ struct AccountModelResponse: Codable {
         case accountNickname = "account_nickname"
     }
     
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(String.self, forKey: .id) ?? "NO_DATA"
+        self.accountNumber = try container.decodeIfPresent(Int.self, forKey: .accountNumber) ?? -1
+        self.balance = try container.decodeIfPresent(String.self, forKey: .balance) ?? "NO_DATA"
+        self.currencyCode = try container.decodeIfPresent(String.self, forKey: .currencyCode) ?? "NO_DATA"
+        self.accountType = try container.decodeIfPresent(String.self, forKey: .accountType) ?? "NO_DATA"
+        self.accountNickname = try container.decodeIfPresent(String.self, forKey: .accountNickname) ?? "NO_DATA"
+    }
+    
 }
 
