@@ -45,6 +45,13 @@ class AccountTableViewCell: UITableViewCell {
     //MARK: ViewLifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.contentView.addSubview(self.contentContainer)
+        self.contentContainer.addSubview(self.accountBalanceLabel)
+        self.contentContainer.addSubview(self.accountTypeLabel)
+        self.contentContainer.addSubview(self.accountNicknameLabel)
+        
+        self.setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -56,21 +63,12 @@ class AccountTableViewCell: UITableViewCell {
         self.accountTypeLabel.text = nil
         self.accountBalanceLabel.text = nil
         self.accountNicknameLabel.text = nil
-        self.contentContainer = UIView()
     }
     
     func setupCell(for account: Account) {
-        self.contentView.addSubview(self.contentContainer)
-        self.contentContainer.addSubview(self.accountBalanceLabel)
-        self.contentContainer.addSubview(self.accountTypeLabel)
-        self.contentContainer.addSubview(self.accountNicknameLabel)
-        
         self.accountBalanceLabel.text = "\(account.balance) \(account.currencyCode)"
         self.accountTypeLabel.text = account.accountType
         self.accountNicknameLabel.text = account.accountNickname == "NO_DATA" ? "Account Number: \(account.accountNumber)" : account.accountNickname
-        
-        self.setupConstraints()
-
     }
     
     private func setupConstraints() {
@@ -93,3 +91,4 @@ class AccountTableViewCell: UITableViewCell {
     
     
 }
+
