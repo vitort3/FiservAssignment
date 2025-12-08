@@ -65,10 +65,10 @@ class AccountTableViewCell: UITableViewCell {
         self.accountNicknameLabel.text = nil
     }
     
-    func setupCell(for account: Account) {
+    func setupCell(for account: Account, isFavorite: Bool = false) {
         self.accountBalanceLabel.text = "\(account.balance) \(account.currencyCode)"
         self.accountTypeLabel.text = account.accountType
-        self.accountNicknameLabel.text = account.accountNickname == "NO_DATA" ? "Account Number: \(account.accountNumber)" : account.accountNickname
+        self.accountNicknameLabel.text = account.accountNickname == Constants.noData ? "Account Number: \(account.accountNumber)" : account.accountNickname
     }
     
     private func setupConstraints() {

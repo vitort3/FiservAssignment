@@ -52,12 +52,27 @@ class AccountDetailsViewController: UIViewController {
     
     private func setupNavigationBarButton() {
         let starImage = UIImage(systemName: "star")
-        let starButton = UIBarButtonItem(image: starImage, style: .prominent, target: self, action: #selector(starButtonTapped))
-        self.navigationItem.rightBarButtonItem = starButton
+        if UserDefaultsManager.shared.isFavorite(accountId: self.viewModel.account.id) {
+            let starButton = UIBarButtonItem(image: starImage, style: .prominent, target: self, action: #selector(starButtonTapped))
+            self.navigationItem.rightBarButtonItem = starButton
+            self.navigationItem.rightBarButtonItem?.tintColor = .orange
+        } else {
+            let starButton = UIBarButtonItem(image: starImage, style: .plain, target: self, action: #selector(starButtonTapped))
+            self.navigationItem.rightBarButtonItem = starButton
+        }
+        
+        
     }
 
     @objc private func starButtonTapped() {
-        print("Star button tapped")
+        UserDefaultsManager.shared.toggleFavorite(accountId: self.viewModel.account.id)
+        if UserDefaultsManager.shared.isFavorite(accountId: self.viewModel.account.id) {
+            self.navigationItem.rightBarButtonItem?.tintColor = .black
+            self.navigationItem.rightBarButtonItem?.style = .plain
+        } else {
+            self.navigationItem.rightBarButtonItem?.tintColor = .orange
+            self.navigationItem.rightBarButtonItem?.style = .prominent
+        }
     }
     
     private func bindViewModel() {

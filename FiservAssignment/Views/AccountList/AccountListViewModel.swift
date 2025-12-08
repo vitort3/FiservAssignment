@@ -17,6 +17,7 @@ final class AccountListViewModel {
     }
     
     private(set) var accounts: [Account] = []
+    let favoriteAccounts: [String]
     var onStateChange: ((viewState) -> Void)?
     
     private let service: AccountServiceProtocol
@@ -29,6 +30,7 @@ final class AccountListViewModel {
     
     init(service: AccountServiceProtocol = AccountServices.shared) {
         self.service = service
+        self.favoriteAccounts = UserDefaultsManager.shared.getFavoriteAccounts()
     }
     
     func loadAccounts() {

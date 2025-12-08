@@ -43,13 +43,13 @@ extension Transaction {
                             date: "2018-05-16T10:15:30Z",
                             transactionAmount: "199.21",
                             transactionType: "intrabank",
-                            description: "NO_DATA",
+                            description: Constants.noData,
                             isDebit: false),
                 Transaction(id: "a1a9e85b-0f21-451b-813f-44ebabff46c9",
                             date: "2018-05-16T10:15:30Z",
                             transactionAmount: "199.21",
                             transactionType: "intrabank",
-                            description: "NO_DATA",
+                            description: Constants.noData,
                             isDebit: false),
                 Transaction(id: "a1a9e85b-0f21-451b-813f-44ebabff46c9",
                             date: "2019-05-16T10:15:30Z",
@@ -61,7 +61,7 @@ extension Transaction {
                             date: "2018-05-16T10:15:30Z",
                             transactionAmount: "-199.21",
                             transactionType: "intrabank",
-                            description: "NO_DATA",
+                            description: Constants.noData,
                             isDebit: false),]
     }
     

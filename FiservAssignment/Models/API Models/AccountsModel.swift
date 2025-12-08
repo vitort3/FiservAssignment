@@ -24,12 +24,12 @@ struct AccountModelResponse: Codable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decodeIfPresent(String.self, forKey: .id) ?? "NO_DATA"
+        self.id = try container.decodeIfPresent(String.self, forKey: .id) ?? Constants.noData
         self.accountNumber = try container.decodeIfPresent(Int.self, forKey: .accountNumber) ?? -1
-        self.balance = try container.decodeIfPresent(String.self, forKey: .balance) ?? "NO_DATA"
-        self.currencyCode = try container.decodeIfPresent(String.self, forKey: .currencyCode) ?? "NO_DATA"
-        self.accountType = try container.decodeIfPresent(String.self, forKey: .accountType) ?? "NO_DATA"
-        self.accountNickname = try container.decodeIfPresent(String.self, forKey: .accountNickname) ?? "NO_DATA"
+        self.balance = try container.decodeIfPresent(String.self, forKey: .balance) ?? Constants.noData
+        self.currencyCode = try container.decodeIfPresent(String.self, forKey: .currencyCode) ?? Constants.noData
+        self.accountType = try container.decodeIfPresent(String.self, forKey: .accountType) ?? Constants.noData
+        self.accountNickname = try container.decodeIfPresent(String.self, forKey: .accountNickname) ?? Constants.noData
     }
     
 }

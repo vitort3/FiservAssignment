@@ -46,11 +46,11 @@ struct TransactionModelResponse: Codable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decodeIfPresent(String.self, forKey: .id)  ?? "NO_DATA"
-        self.date = try container.decodeIfPresent(String.self, forKey: .date)  ?? "NO_DATA"
-        self.transactionAmount = try container.decodeIfPresent(String.self, forKey: .transactionAmount)  ?? "NO_DATA"
-        self.transactionType = try container.decodeIfPresent(String.self, forKey: .transactionType)  ?? "NO_DATA"
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)  ?? "NO_DATA"
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)  ?? Constants.noData
+        self.date = try container.decodeIfPresent(String.self, forKey: .date)  ?? Constants.noData
+        self.transactionAmount = try container.decodeIfPresent(String.self, forKey: .transactionAmount)  ?? Constants.noData
+        self.transactionType = try container.decodeIfPresent(String.self, forKey: .transactionType)  ?? Constants.noData
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)  ?? Constants.noData
         self.isDebit = try container.decodeIfPresent(Bool.self, forKey: .isDebit) ?? false
     }
 }

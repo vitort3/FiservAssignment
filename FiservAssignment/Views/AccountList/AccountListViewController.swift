@@ -34,6 +34,7 @@ class AccountListViewController: UIViewController {
     //MARK: Class Properties
     private let viewModel: AccountListViewModel
     
+    
     //MARK: ViewLifeCycle
     init(viewModel: AccountListViewModel) {
         self.viewModel = viewModel
@@ -55,7 +56,6 @@ class AccountListViewController: UIViewController {
     }
     
     //MARK: Functions
-    
     private func setupTableView() {
         tableView.register(AccountTableViewCell.self, forCellReuseIdentifier: AccountTableViewCell.reuseIdentifier)
         self.tableView.dataSource = self
@@ -119,7 +119,7 @@ extension AccountListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.reuseIdentifier, for: indexPath) as?  AccountTableViewCell else { return UITableViewCell() }
         let account = viewModel.getAccount(at: indexPath)
         cell.accessoryType = .disclosureIndicator
-        cell.setupCell(for: account)
+        cell.setupCell(for: account, isFavorite: self.viewModel.favoriteAccounts.contains(account.id))
         return cell
     }
     
@@ -133,7 +133,7 @@ extension AccountListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedAccount = self.viewModel.getAccount(at: indexPath)
-        let viewModel = AccountDetailsViewModel(account: selectedAccount)
+        let viewModel = AccountDetailsViewModel(account: selectedAccount, isFavorite: self.viewModel.favoriteAccounts.contains(selectedAccount.id))
         let vc = AccountDetailsViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }

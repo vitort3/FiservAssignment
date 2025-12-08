@@ -21,11 +21,13 @@ final class AccountDetailsViewModel {
     private(set) var transactions: [Transaction] = []
     private(set) var account: Account
     private(set) var accountDetails: AccountDetails?
+    var isFavorite: Bool
     
-    init(accountService: AccountServiceProtocol = AccountServices.shared, transactionService: TransactionServiceProtocol = TransactionServices.shared, account: Account) {
+    init(accountService: AccountServiceProtocol = AccountServices.shared, transactionService: TransactionServiceProtocol = TransactionServices.shared, account: Account, isFavorite: Bool = false) {
         self.accountService = accountService
         self.transactionService = transactionService
         self.account = account
+        self.isFavorite = isFavorite
     }
     
     func loadAccountDetailsAndTransactions() {
