@@ -81,35 +81,33 @@ class TransactionTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-            self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
-            self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
-            self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
-            
-            self.transactionTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
-            self.transactionTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
-
-            self.transactionDateLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
-            self.transactionDateLabel.leadingAnchor.constraint(equalTo: self.transactionTypeLabel.leadingAnchor, constant: 5),
-            self.transactionDateLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -5),
-            
-            self.transactionDescriptionLabel.topAnchor.constraint(equalTo: self.transactionTypeLabel.topAnchor, constant: 10),
-            self.transactionDescriptionLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
-            
-            self.transactionAmountLabel.topAnchor.constraint(equalTo: self.transactionDateLabel.topAnchor, constant: 5),
-            self.transactionAmountLabel.leadingAnchor.constraint(equalTo: self.transactionDescriptionLabel.trailingAnchor, constant: 5),
-            self.transactionAmountLabel.trailingAnchor.constraint(equalTo: self.transactionDateLabel.trailingAnchor, constant: -5),
-            self.transactionAmountLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -5)
-            ])
-    }
+    NSLayoutConstraint.activate([
+        // Container
+        self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+        self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
+        self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+        self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+        
+        // Transaction Type (Verde - top-left)
+        self.transactionTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
+        self.transactionTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+        
+        // Transaction Date (Vermelho - top-right)
+        self.transactionDateLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 5),
+        self.transactionDateLabel.leadingAnchor.constraint(equalTo: self.transactionTypeLabel.trailingAnchor, constant: 10),
+        self.transactionDateLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -5),
+        
+        // Transaction Description (Azul - bottom-left, OPCIONAL)
+        self.transactionDescriptionLabel.topAnchor.constraint(equalTo: self.transactionTypeLabel.bottomAnchor, constant: 10),
+        self.transactionDescriptionLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 5),
+        self.transactionDescriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.transactionAmountLabel.leadingAnchor, constant: -10),
+        
+        // Transaction Amount (Amarelo - bottom-right, ANCORA O BOTTOM)
+        self.transactionAmountLabel.topAnchor.constraint(equalTo: self.transactionDateLabel.bottomAnchor, constant: 10),
+        self.transactionAmountLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -5),
+        self.transactionAmountLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -5)
+    ])
+}
     
     
 }
-
-//Transaction(id: "a1a9e85b-0f21-451b-813f-44ebabff46c9",
-//            date: "2018-05-16T10:15:30Z",
-//            transactionAmount: "199.21",
-//            transactionType: "intrabank",
-//            description: "NO_DATA",
-//            isDebit: false),
