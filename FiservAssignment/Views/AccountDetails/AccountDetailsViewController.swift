@@ -106,7 +106,15 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func handleError(error: APIErrors) {
-        
+        guard viewController.presentedViewController == nil else { return }
+
+        let alert = UIAlertController(title: "Error",
+                                        message: error.description,
+                                        preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+        viewController.present(alert, animated: true)
     }
     
     private func setupTableView() {
