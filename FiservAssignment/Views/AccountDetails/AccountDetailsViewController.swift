@@ -132,8 +132,6 @@ extension AccountDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("AAAAAAAAAAAAAAAAAAAAAA")
-        
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountTableViewCell.reuseIdentifier, for: indexPath) as?  AccountTableViewCell else { return UITableViewCell() }
             cell.setupCell(for: self.viewModel.account)
