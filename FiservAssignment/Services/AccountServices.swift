@@ -23,13 +23,9 @@ class AccountServices: AccountServiceProtocol {
             let accountsResponse = try JSONDecoder().decode([AccountModelResponse].self, from: data)
             return accountsResponse.map(Account.init)
             
-            
         } catch {
-            print(error) //TODO: Error Handling
+            throw error
         }
-        
-        return nil
-
     }
     
     func fetchAccountDetails(accountId: String) async throws -> AccountDetails? {

@@ -8,28 +8,28 @@ import UIKit
 
 class AccountTableViewCell: UITableViewCell {
     //MARK: UI Elements
-    private lazy var accountBalanceLabel: UILabel = {
+    private let accountBalanceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var accountTypeLabel: UILabel = {
+    private let accountTypeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var accountNicknameLabel: UILabel = {
+    private let accountNicknameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var contentContainer: UIView = {
+    private let contentContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .opaqueSeparator
@@ -69,6 +69,9 @@ class AccountTableViewCell: UITableViewCell {
         self.accountBalanceLabel.text = "\(account.balance) \(account.currencyCode)"
         self.accountTypeLabel.text = account.accountType
         self.accountNicknameLabel.text = account.accountNickname == Constants.noData ? "Account Number: \(account.accountNumber)" : account.accountNickname
+        
+        self.contentContainer.layer.borderColor = isFavorite ? UIColor.orange.cgColor : UIColor.gray.cgColor
+        self.contentContainer.layer.borderWidth = isFavorite ? 2 : 1
     }
     
     private func setupConstraints() {

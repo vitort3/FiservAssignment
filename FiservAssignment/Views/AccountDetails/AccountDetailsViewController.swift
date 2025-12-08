@@ -54,24 +54,25 @@ class AccountDetailsViewController: UIViewController {
         let starImage = UIImage(systemName: "star")
         if UserDefaultsManager.shared.isFavorite(accountId: self.viewModel.account.id) {
             let starButton = UIBarButtonItem(image: starImage, style: .prominent, target: self, action: #selector(starButtonTapped))
+            starButton.tintColor = .orange
             self.navigationItem.rightBarButtonItem = starButton
             self.navigationItem.rightBarButtonItem?.tintColor = .orange
         } else {
             let starButton = UIBarButtonItem(image: starImage, style: .plain, target: self, action: #selector(starButtonTapped))
             self.navigationItem.rightBarButtonItem = starButton
+            self.navigationItem.rightBarButtonItem?.tintColor = .black
         }
-        
-        
     }
 
     @objc private func starButtonTapped() {
         UserDefaultsManager.shared.toggleFavorite(accountId: self.viewModel.account.id)
+        
         if UserDefaultsManager.shared.isFavorite(accountId: self.viewModel.account.id) {
-            self.navigationItem.rightBarButtonItem?.tintColor = .black
-            self.navigationItem.rightBarButtonItem?.style = .plain
-        } else {
             self.navigationItem.rightBarButtonItem?.tintColor = .orange
             self.navigationItem.rightBarButtonItem?.style = .prominent
+        } else {
+            self.navigationItem.rightBarButtonItem?.tintColor = .black
+            self.navigationItem.rightBarButtonItem?.style = .plain
         }
     }
     
@@ -94,11 +95,16 @@ class AccountDetailsViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 
-            case .error(let error):
-                //TODO: handle errors
-                print(error)
+            case .error(let error as APIErrors):
+                self.handleError(error: error)
+            case .error(_):
+                handleError(error: .unknownError)
             }
         }
+    }
+    
+    private func handleError(error: APIErrors) {
+        
     }
     
     private func setupTableView() {

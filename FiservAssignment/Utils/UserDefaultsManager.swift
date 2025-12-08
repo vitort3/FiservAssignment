@@ -23,7 +23,9 @@ final class UserDefaultsManager {
     private init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
     }
+}
 
+extension UserDefaultsManager { //Favorite Account Functions
     func getFavoriteAccounts() -> [String] {
         return userDefaults.stringArray(forKey: Keys.favoriteAccounts) ?? []
     }

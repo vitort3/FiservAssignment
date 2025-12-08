@@ -25,12 +25,8 @@ class TransactionServices: TransactionServiceProtocol {
             return transactionList.transactions.map(Transaction.init)
             
         } catch {
-            print(error) //TODO: Error Handling
+            throw error
         }
-        
-        return nil
     }
-    
-
 }
     

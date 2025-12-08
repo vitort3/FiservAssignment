@@ -17,7 +17,7 @@ final class AccountListViewModel {
     }
     
     private(set) var accounts: [Account] = []
-    let favoriteAccounts: [String]
+    var favoriteAccounts: [String]
     var onStateChange: ((viewState) -> Void)?
     
     private let service: AccountServiceProtocol
@@ -37,8 +37,8 @@ final class AccountListViewModel {
         Task {
             onStateChange?(.loading)
             do {
-                //guard let result = try await self.service.fetchAccounts() else {return}
-                let result = await Account.getMockAccountList()
+                guard let result = try await self.service.fetchAccounts() else {return}
+                //let result = await Account.getMockAccountList()
                 //let result = await Account.getEmptyMockAccountList()
                 if result.isEmpty {
                     self.onStateChange?(.empty)

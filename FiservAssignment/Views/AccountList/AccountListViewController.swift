@@ -51,6 +51,11 @@ class AccountListViewController: UIViewController {
         self.viewModel.loadAccounts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.viewModel.favoriteAccounts = UserDefaultsManager.shared.getFavoriteAccounts()
+        tableView.reloadData()
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

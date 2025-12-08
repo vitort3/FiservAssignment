@@ -34,10 +34,10 @@ final class AccountDetailsViewModel {
         self.onStateChange?(.loading)
         Task {
             do {
-                //guard let transactions = try await self.transactionService.fetchTransactions(accountId: self.account.id) else {return}
-                //guard let accountDetails = try await self.accountService.fetchAccountDetails(accountId: self.account.id) else {return}
-                let transactions = await Transaction.getTransactionsMock()
-                let accountDetails = await AccountDetails.getMockAccountDetails()
+                guard let transactions = try await self.transactionService.fetchTransactions(accountId: self.account.id) else {return}
+                guard let accountDetails = try await self.accountService.fetchAccountDetails(accountId: self.account.id) else {return}
+                //let transactions = await Transaction.getTransactionsMock()
+                //let accountDetails = await AccountDetails.getMockAccountDetails()
                 
                 self.transactions = transactions
                 self.accountDetails = accountDetails
@@ -53,11 +53,7 @@ final class AccountDetailsViewModel {
     var numberOfTransactions: Int? {
         return transactions.count
     }
-    
 
-
-
-    
 }
 
 
