@@ -83,7 +83,6 @@ class AccountDetailsTableViewCell: UITableViewCell {
         self.openedDateLabel.text = nil
         self.accountBranchLabel.text = nil
         self.accountBeneficiariesLabel.text = nil
-        self.contentContainer = UIView()
     }
     
     func setupCell(for account: Account, andDetails accountDetails: AccountDetails) {
@@ -127,3 +126,4 @@ class AccountDetailsTableViewCell: UITableViewCell {
     
     
 }
+
