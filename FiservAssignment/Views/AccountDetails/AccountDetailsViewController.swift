@@ -95,10 +95,12 @@ class AccountDetailsViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 
-            case .error(let error as APIErrors):
-                self.handleError(error: error)
-            case .error(_):
-                handleError(error: .unknownError)
+            case .error(let error):
+                guard let apiError = error as? APIErrors else {
+                    self.handleError(error: .unknownError)
+                    return
+                }
+                self.handleError(error: apiError)
             }
         }
     }

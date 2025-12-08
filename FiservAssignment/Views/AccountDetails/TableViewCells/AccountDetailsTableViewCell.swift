@@ -78,7 +78,6 @@ class AccountDetailsTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        print("🚩 Cell prepareForReuse - subview Count? \(self.contentView.subviews.count)")
         self.accountTypeLabel.text = nil
         self.productNameLabel.text = nil
         self.openedDateLabel.text = nil
