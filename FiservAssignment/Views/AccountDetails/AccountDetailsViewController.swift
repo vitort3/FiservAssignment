@@ -96,6 +96,8 @@ class AccountDetailsViewController: UIViewController {
                 self.tableView.reloadData()
                 
             case .error(let error):
+                self.tableView.isHidden = true
+                self.activityIndicator.isHidden = true
                 guard let apiError = error as? APIErrors else {
                     self.handleError(error: .unknownError)
                     return
@@ -106,15 +108,17 @@ class AccountDetailsViewController: UIViewController {
     }
     
     private func handleError(error: APIErrors) {
-        guard viewController.presentedViewController == nil else { return }
+        guard self.presentedViewController == nil else { return }
 
         let alert = UIAlertController(title: "Error",
-                                        message: error.description,
-                                        preferredStyle: .alert)
+                                      message: error.description,
+                                      preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { _ in
+            self.navigationController?.popViewController(animated: true)
+        }))
 
-        viewController.present(alert, animated: true)
+        self.present(alert, animated: true)
     }
     
     private func setupTableView() {
@@ -181,7 +185,7 @@ extension AccountDetailsViewController: UITableViewDataSource {
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.reuseIdentifier, for: indexPath) as? TransactionTableViewCell else { return UITableViewCell() }
             let transaction = self.viewModel.transactions[indexPath.row]
-            cell.setupCell(for: transaction)
+            cell.setupCell(for: transaction, andCurrency: self.viewModel.account.currencyCode)
             return cell
         }
     }

@@ -25,7 +25,7 @@ enum APIErrors: Error {
         case .decodingError:
             return "Decoding error"
         case .serverError(let code):
-            return "Server error. status \(code)"
+            return "Server error. \nStatus \(code)"
         case .networkError:
             return "Network error"
         case .unauthorized:

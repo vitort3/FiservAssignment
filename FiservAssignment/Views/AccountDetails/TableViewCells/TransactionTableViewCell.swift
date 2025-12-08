@@ -65,13 +65,13 @@ class TransactionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell(for transaction: Transaction) {
+    func setupCell(for transaction: Transaction, andCurrency currency: String) {
         let formatter = DateFormatter()
         formatter.dateFormat = "d/MM/yyyy"
         let date = formatter.string(from: transaction.date)
         self.transactionDateLabel.text = date
-        self.transactionAmountLabel.text = transaction.transactionAmount
-        if transaction.transactionAmount.contains("-") {
+        self.transactionAmountLabel.text = "\(transaction.transactionAmount) \(currency)"
+        if transaction.isDebit {
             self.transactionAmountLabel.textColor = .red
         } else {
             self.transactionAmountLabel.textColor = .green
