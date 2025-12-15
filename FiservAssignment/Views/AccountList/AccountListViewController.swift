@@ -103,8 +103,13 @@ class AccountListViewController: UIViewController {
                 self.tableView.reloadData()
                 
             case .error(let error):
-                //TODO: handle errors
-                print(error)
+                self.tableView.isHidden = true
+                self.activityIndicator.isHidden = true
+                guard let apiError = error as? APIErrors else {
+                    self.handleError(error: .unknownError)
+                    return
+                }
+                self.handleError(error: apiError)
                 
             case .empty:
                 self.tableView.isHidden = true
@@ -112,6 +117,20 @@ class AccountListViewController: UIViewController {
                 self.noAccountsLabel.isHidden = false
             }
         }
+    }
+    
+    private func handleError(error: APIErrors) {
+        guard self.presentedViewController == nil else { return }
+
+        let alert = UIAlertController(title: "Error",
+                                      message: error.description,
+                                      preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { _ in
+            self.navigationController?.popViewController(animated: true)
+        }))
+
+        self.present(alert, animated: true)
     }
 }
 //MARK: Extensions
@@ -144,3 +163,4 @@ extension AccountListViewController: UITableViewDelegate {
     }
     
 }
+
