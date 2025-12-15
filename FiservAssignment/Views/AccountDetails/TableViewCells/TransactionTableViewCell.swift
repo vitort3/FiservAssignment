@@ -27,7 +27,7 @@ class TransactionTableViewCell: UITableViewCell {
     
     private let transactionAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.font = UIFont.boldSystemFont(ofSize: 23)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -87,26 +87,24 @@ class TransactionTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-    NSLayoutConstraint.activate([
-        // Container
-        self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-        self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
-        self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
-        self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+        self.contentContainer.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10).isActive = true
+        self.contentContainer.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10).isActive = true
+        self.contentContainer.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10).isActive = true
+        self.contentContainer.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10).isActive = true
         
-        self.transactionTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 10),
-        self.transactionTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10),
+        self.transactionTypeLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 10).isActive = true
+        self.transactionTypeLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10).isActive = true
+        self.transactionDateLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 10).isActive = true
+        self.transactionDateLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -10).isActive = true
+        
+        self.transactionDescriptionLabel.topAnchor.constraint(equalTo: self.transactionTypeLabel.bottomAnchor, constant: 7).isActive = true
+        self.transactionDescriptionLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10).isActive = true
+        
+        self.transactionAmountLabel.topAnchor.constraint(equalTo: self.transactionDateLabel.bottomAnchor, constant: 10).isActive = true
+        self.transactionAmountLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -8).isActive = true
+        self.transactionAmountLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -8).isActive = true
+        self.transactionAmountLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.transactionDescriptionLabel.trailingAnchor, constant: 5).isActive = true
 
-        self.transactionDateLabel.topAnchor.constraint(equalTo: self.contentContainer.topAnchor, constant: 10),
-        self.transactionDateLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -10),
-        
-        self.transactionDescriptionLabel.topAnchor.constraint(equalTo: self.transactionTypeLabel.bottomAnchor, constant: 7),
-        self.transactionDescriptionLabel.leadingAnchor.constraint(equalTo: self.contentContainer.leadingAnchor, constant: 10),
-        
-        self.transactionAmountLabel.topAnchor.constraint(equalTo: self.transactionDateLabel.bottomAnchor, constant: 10),
-        self.transactionAmountLabel.trailingAnchor.constraint(equalTo: self.contentContainer.trailingAnchor, constant: -8),
-        self.transactionAmountLabel.bottomAnchor.constraint(equalTo: self.contentContainer.bottomAnchor, constant: -8)
-    ])
 }
     
     
