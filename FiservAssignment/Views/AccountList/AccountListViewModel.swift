@@ -33,12 +33,11 @@ final class AccountListViewModel {
         self.favoriteAccounts = UserDefaultsManager.shared.getFavoriteAccounts()
     }
     
-    func loadAccounts(withMock mock: Bool = false, ) {
+    func loadAccounts(withMock mock: Bool = false) {
         Task {
             onStateChange?(.loading)
             do {
                 guard let result = mock ? await Account.getMockAccountList() : try await self.service.fetchAccounts() else {return}
-                print(result)
                 if result.isEmpty {
                     self.onStateChange?(.empty)
                 } else {

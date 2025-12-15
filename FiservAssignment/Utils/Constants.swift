@@ -7,5 +7,6 @@
 
 struct Constants {
     static let noData = "NO_DATA"
+    static let idTest = "id001_Test"
 }
 

@@ -20,7 +20,7 @@ final class UserDefaultsManager {
     private let userDefaults: UserDefaults
     
     // MARK: - Initialization
-    private init(userDefaults: UserDefaults = .standard) {
+    init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
     }
 }

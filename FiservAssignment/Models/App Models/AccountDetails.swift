@@ -28,9 +28,8 @@ struct AccountDetails {
 }
 
 extension AccountDetails {
-    static func getMockAccountDetails() async -> AccountDetails {
-        try? await Task.sleep()
-        
+    static func getMockAccountDetails() -> AccountDetails {
+       
         return AccountDetails(productName: "Current Account EUR",
                               openedDate: "2015-12-23T10:15:30Z",
                               branch: "Main Branch",

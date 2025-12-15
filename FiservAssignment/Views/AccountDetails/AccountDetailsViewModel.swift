@@ -36,8 +36,6 @@ final class AccountDetailsViewModel {
             do {
                 guard let transactions = try await self.transactionService.fetchTransactions(accountId: self.account.id) else {return}
                 guard let accountDetails = try await self.accountService.fetchAccountDetails(accountId: self.account.id) else {return}
-                //let transactions = await Transaction.getTransactionsMock()
-                //let accountDetails = await AccountDetails.getMockAccountDetails()
                 
                 self.transactions = transactions
                 self.accountDetails = accountDetails
